@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="test-information.html">Test Information</a></li>
+<li><a href="about-system.html">About the System</a></li>
+<li><a href="test-parameters.html">Test Parameters</a></li>
+<li><a href="urine-strip.html">Urine Strip</a></li>
+<li><a href="patient-report.html">Patient Report</a></li>
+<li><a href="patient-registration.html">Registration</a></li>
+<li><a href="media.html">Media</a></li>
+<li><a href="book.html">Test Kits</a></li>
+<li><a href="navigation.html">Navigation</a></li>
+</ul>
+</nav>
+
+<h1>Patient Registration Form</h1>
+
+<form id="patientForm">
+<fieldset>
+<legend>Patient Details</legend>
+
+<label for="patientName">Patient Name:</label><br>
+<input type="text" id="patientName" name="patient_name">
+<span id="patientNameError" style="color: red;"></span>
+<br><br>
+
+<label for="age">Age:</label><br>
+<input type="number" id="age" name="age" min="1">
+<span id="ageError" style="color: red;"></span>
+<br><br>
+
+<label for="gender">Gender:</label><br>
+<select id="gender" name="gender">
+<option value="male">Male</option>
+<option value="female">Female</option>
+<option value="other">Other</option>
+</select><br><br>
+
+<label for="mobile">Mobile Number:</label><br>
+<input type="tel" id="mobile" name="mobile">
+<span id="mobileError" style="color: red;"></span>
+<br><br>
+
+<label for="email">Email:</label><br>
+<input type="email" id="email" name="email">
+<span id="emailError" style="color: red;"></span>
+<br><br>
+
+<label for="patientId">Patient ID:</label><br>
+<input type="text" id="patientId" name="patient_id">
+<span id="patientIdError" style="color: red;"></span>
+<br><br>
+
+<label for="testDate">Test Date:</label><br>
+<input type="date" id="testDate" name="test_date"><br><br>
+
+<label for="doctorName">Doctor Name:</label><br>
+<input type="text" id="doctorName" name="doctor_name">
+<span id="doctorNameError" style="color: red;"></span>
+<br><br>
+
+<label>Symptoms:</label><br>
+<input type="checkbox" name="symptoms" value="burning"> Burning while urinating<br>
+<input type="checkbox" name="symptoms" value="fever"> Fever<br>
+<input type="checkbox" name="symptoms" value="frequent"> Frequent urination<br>
+<input type="checkbox" name="symptoms" value="pain"> Lower abdominal pain<br><br>
+
+<label>Preferred Report Format:</label><br>
+<input type="radio" name="report_format" value="pdf"> PDF<br>
+<input type="radio" name="report_format" value="print"> Printed Copy<br>
+<input type="radio" name="report_format" value="email"> Email<br><br>
+
+<input type="submit" value="Submit">
+<input type="reset" value="Reset" onclick="clearErrors()">
+</fieldset>
+</form>
+
+<footer>
+CityCare Hospital | Urine Test Strip Reader System | 2026
+</footer>
+
+<script>
+document.getElementById("patientForm").onsubmit = function(event) {
+    event.preventDefault();
+    clearErrors();
+
+    var isValid = true;
+
+    var patientName = document.getElementById("patientName").value.trim();
+    var age = document.getElementById("age").value.trim();
+    var mobile = document.getElementById("mobile").value.trim();
+    var doctorName = document.getElementById("doctorName").value.trim();
+
+    // text fields: letters and spaces only (no numbers)
+    if (patientName === "") {
+        document.getElementById("patientNameError").innerHTML = " Patient Name is required";
+        document.getElementById("patientName").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[A-Za-z ]+$/.test(patientName)) {
+        document.getElementById("patientNameError").innerHTML = " Name cannot contain numbers or special characters";
+        document.getElementById("patientName").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (doctorName !== "" && !/^[A-Za-z ]+$/.test(doctorName)) {
+        document.getElementById("doctorNameError").innerHTML = " Doctor Name cannot contain numbers or special characters";
+        document.getElementById("doctorName").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    // number fields: digits only, age cannot be less than 1
+    if (age === "") {
+        document.getElementById("ageError").innerHTML = " Age is required";
+        document.getElementById("age").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[0-9]+$/.test(age)) {
+        document.getElementById("ageError").innerHTML = " Age must be a number only";
+        document.getElementById("age").style.border = "2px solid red";
+        isValid = false;
+    } else if (Number(age) < 1) {
+        document.getElementById("ageError").innerHTML = " Age cannot be less than 1";
+        document.getElementById("age").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (mobile === "") {
+        document.getElementById("mobileError").innerHTML = " Mobile number is required";
+        document.getElementById("mobile").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[0-9]+$/.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = " Mobile number must contain digits only";
+        document.getElementById("mobile").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = " Enter a valid 10-digit mobile number";
+        document.getElementById("mobile").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (isValid === true) {
+        alert("Registration successful!");
+        document.getElementById("patientForm").reset();
+        clearErrors();
+    }
+};
+
+function clearErrors() {
+    document.getElementById("patientNameError").innerHTML = "";
+    document.getElementById("ageError").innerHTML = "";
+    document.getElementById("mobileError").innerHTML = "";
+    document.getElementById("doctorNameError").innerHTML = "";
+    document.getElementById("patientIdError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+
+    document.getElementById("patientName").style.border = "";
+    document.getElementById("age").style.border = "";
+    document.getElementById("mobile").style.border = "";
+    document.getElementById("doctorName").style.border = "";
+}
+</script>
+
+</body>
+</html>

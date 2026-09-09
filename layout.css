@@ -1,0 +1,25 @@
+.container {
+    overflow: hidden;
+    padding: 15px;
+}
+
+.sidebar-area {
+    float: left;
+    width: 25%;
+}
+
+.content-area {
+    float: right;
+    width: 70%;
+    padding: 10px;
+    background-color: white;
+    min-height: 300px;
+}
+
+.site-footer {
+    clear: both;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}

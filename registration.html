@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Farmer Registration</title>
+</head>
+<body>
+
+<h1>Smart Irrigation Advisory System</h1>
+<h2>Farmer Registration Form</h2>
+
+<form id="farmerForm" name="farmerForm">
+
+<fieldset>
+<legend>Farmer Details</legend>
+
+<label for="farmerName">Farmer Name:</label><br>
+<input type="text" id="farmerName" name="farmerName">
+<span id="farmerNameError" style="color: red;"></span>
+<br><br>
+
+<label for="mobile">Mobile Number:</label><br>
+<input type="text" id="mobile" name="mobile">
+<span id="mobileError" style="color: red;"></span>
+<br><br>
+
+<label for="email">Email:</label><br>
+<input type="text" id="email" name="email">
+<span id="emailError" style="color: red;"></span>
+<br><br>
+
+<label for="age">Age:</label><br>
+<input type="number" id="age" name="age" min="1">
+<span id="ageError" style="color: red;"></span>
+<br><br>
+</fieldset>
+
+<br>
+
+<fieldset>
+<legend>Farm Details</legend>
+
+<label for="plotId">Plot ID:</label><br>
+<input type="text" id="plotId" name="plotId">
+<span id="plotIdError" style="color: red;"></span>
+<br><br>
+
+<label for="village">Village:</label><br>
+<input type="text" id="village" name="village">
+<span id="villageError" style="color: red;"></span>
+<br><br>
+
+<label for="cropStage">Crop Stage:</label><br>
+<select id="cropStage" name="cropStage">
+<option value="">-- Select Crop Stage --</option>
+<option value="sowing">Sowing</option>
+<option value="vegetative">Vegetative</option>
+<option value="flowering">Flowering</option>
+<option value="harvest">Harvest</option>
+</select>
+<span id="cropStageError" style="color: red;"></span>
+<br><br>
+
+<label for="soilType">Soil Type:</label><br>
+<select id="soilType" name="soilType">
+<option value="">-- Select Soil Type --</option>
+<option value="clay">Clay</option>
+<option value="sandy">Sandy</option>
+<option value="loamy">Loamy</option>
+<option value="silty">Silty</option>
+</select>
+<span id="soilTypeError" style="color: red;"></span>
+<br><br>
+
+<label for="irrigationMethod">Irrigation Method:</label><br>
+<select id="irrigationMethod" name="irrigationMethod">
+<option value="">-- Select Irrigation Method --</option>
+<option value="drip">Drip</option>
+<option value="sprinkler">Sprinkler</option>
+<option value="flood">Flood</option>
+<option value="manual">Manual</option>
+</select>
+<span id="irrigationMethodError" style="color: red;"></span>
+<br><br>
+
+<label for="soilMoisture">Soil Moisture (%):</label><br>
+<input type="number" id="soilMoisture" name="soilMoisture" min="0" max="100">
+<span id="soilMoistureError" style="color: red;"></span>
+<br><br>
+
+<label for="regDate">Registration Date:</label><br>
+<input type="date" id="regDate" name="regDate">
+<span id="regDateError" style="color: red;"></span>
+<br><br>
+
+<label for="farmPhoto">Farm Photo:</label><br>
+<input type="file" id="farmPhoto" name="farmPhoto" accept="image/*">
+<br><br>
+</fieldset>
+
+<br>
+
+<input type="submit" value="Submit">
+<input type="reset" value="Reset" onclick="clearErrors()">
+
+</form>
+
+<script>
+document.getElementById("farmerForm").onsubmit = function(event) {
+    event.preventDefault();
+
+    clearErrors();
+
+    var isValid = true;
+
+    var farmerName = document.getElementById("farmerName").value.trim();
+    var plotId = document.getElementById("plotId").value.trim();
+    var village = document.getElementById("village").value.trim();
+    var mobile = document.getElementById("mobile").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var age = document.getElementById("age").value.trim();
+    var soilMoisture = document.getElementById("soilMoisture").value.trim();
+    var cropStage = document.getElementById("cropStage").value;
+    var soilType = document.getElementById("soilType").value;
+    var irrigationMethod = document.getElementById("irrigationMethod").value;
+    var regDate = document.getElementById("regDate").value;
+
+    // Task 2: required text fields (letters/spaces only - no numbers)
+    if (farmerName === "") {
+        document.getElementById("farmerNameError").innerHTML = " Farmer Name is required";
+        document.getElementById("farmerName").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[A-Za-z ]+$/.test(farmerName)) {
+        document.getElementById("farmerNameError").innerHTML = " Name cannot contain numbers or special characters";
+        document.getElementById("farmerName").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (plotId === "") {
+        document.getElementById("plotIdError").innerHTML = " Plot ID is required";
+        document.getElementById("plotId").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (village === "") {
+        document.getElementById("villageError").innerHTML = " Village is required";
+        document.getElementById("village").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[A-Za-z ]+$/.test(village)) {
+        document.getElementById("villageError").innerHTML = " Village cannot contain numbers or special characters";
+        document.getElementById("village").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    // Age: numbers only, cannot be less than 1
+    if (age === "") {
+        document.getElementById("ageError").innerHTML = " Age is required";
+        document.getElementById("age").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[0-9]+$/.test(age)) {
+        document.getElementById("ageError").innerHTML = " Age must be a number only";
+        document.getElementById("age").style.border = "2px solid red";
+        isValid = false;
+    } else if (Number(age) < 1) {
+        document.getElementById("ageError").innerHTML = " Age cannot be less than 1";
+        document.getElementById("age").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    // Soil moisture: numbers only
+    if (soilMoisture !== "" && !/^[0-9]+$/.test(soilMoisture)) {
+        document.getElementById("soilMoistureError").innerHTML = " Soil Moisture must be a number only";
+        document.getElementById("soilMoisture").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    // Task 3: mobile and email (mobile = digits only)
+    if (mobile === "") {
+        document.getElementById("mobileError").innerHTML = " Mobile number is required";
+        document.getElementById("mobile").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[0-9]+$/.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = " Mobile number must contain digits only";
+        document.getElementById("mobile").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = " Enter a valid 10-digit Indian mobile number";
+        document.getElementById("mobile").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (email === "") {
+        document.getElementById("emailError").innerHTML = " Email is required";
+        document.getElementById("email").style.border = "2px solid red";
+        isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById("emailError").innerHTML = " Enter a valid email address";
+        document.getElementById("email").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    // Task 4: select and date fields
+    if (cropStage === "") {
+        document.getElementById("cropStageError").innerHTML = " Please select Crop Stage";
+        document.getElementById("cropStage").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (soilType === "") {
+        document.getElementById("soilTypeError").innerHTML = " Please select Soil Type";
+        document.getElementById("soilType").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (irrigationMethod === "") {
+        document.getElementById("irrigationMethodError").innerHTML = " Please select Irrigation Method";
+        document.getElementById("irrigationMethod").style.border = "2px solid red";
+        isValid = false;
+    }
+
+    if (regDate === "") {
+        document.getElementById("regDateError").innerHTML = " Registration Date is required";
+        document.getElementById("regDate").style.border = "2px solid red";
+        isValid = false;
+    } else {
+        var selectedDate = new Date(regDate);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate > today) {
+            document.getElementById("regDateError").innerHTML = " Registration Date cannot be in the future";
+            document.getElementById("regDate").style.border = "2px solid red";
+            isValid = false;
+        }
+    }
+
+    if (isValid === true) {
+        alert("Registration successful!");
+        document.getElementById("farmerForm").reset();
+        clearErrors();
+    }
+};
+
+function clearErrors() {
+    document.getElementById("farmerNameError").innerHTML = "";
+    document.getElementById("plotIdError").innerHTML = "";
+    document.getElementById("villageError").innerHTML = "";
+    document.getElementById("mobileError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("ageError").innerHTML = "";
+    document.getElementById("soilMoistureError").innerHTML = "";
+    document.getElementById("cropStageError").innerHTML = "";
+    document.getElementById("soilTypeError").innerHTML = "";
+    document.getElementById("irrigationMethodError").innerHTML = "";
+    document.getElementById("regDateError").innerHTML = "";
+
+    document.getElementById("farmerName").style.border = "";
+    document.getElementById("plotId").style.border = "";
+    document.getElementById("village").style.border = "";
+    document.getElementById("mobile").style.border = "";
+    document.getElementById("email").style.border = "";
+    document.getElementById("age").style.border = "";
+    document.getElementById("soilMoisture").style.border = "";
+    document.getElementById("cropStage").style.border = "";
+    document.getElementById("soilType").style.border = "";
+    document.getElementById("irrigationMethod").style.border = "";
+    document.getElementById("regDate").style.border = "";
+}
+</script>
+
+</body>
+</html>

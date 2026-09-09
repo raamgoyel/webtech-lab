@@ -1,0 +1,33 @@
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+table caption {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+table th {
+    background-color: #004080;
+    color: white;
+    padding: 10px;
+    border: 1px solid #333;
+}
+
+table td {
+    padding: 8px;
+    border: 1px solid #333;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #d9ecff;
+}
+
+table tfoot td {
+    background-color: #eeeeee;
+    font-weight: bold;
+}
