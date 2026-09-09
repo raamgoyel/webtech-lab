@@ -1,0 +1,21 @@
+nav {
+    background-color: #64cffa;
+    padding: 10px;
+}
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+.card{
+    padding: 20px;
+    box-shadow: 0 1px 15px #018bc2;
+}
