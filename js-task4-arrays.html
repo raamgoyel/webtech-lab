@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Age Arrays</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="patient-registration.html">Registration</a></li>
+<li><a href="js-task1-fee.html">JS Task 1</a></li>
+<li><a href="js-task2-priority.html">JS Task 2</a></li>
+<li><a href="js-task3-object.html">JS Task 3</a></li>
+<li><a href="js-task4-arrays.html">JS Task 4</a></li>
+</ul>
+</nav>
+
+<h1>Task 4: Patient Age and Appointment Data Using Arrays</h1>
+<p>Urine Test Strip Reader System - CityCare Hospital</p>
+
+<button onclick="analyzeAges()">Analyze Patient Ages</button>
+
+<pre id="output"></pre>
+
+<script>
+var patientAges = [22, 35, 67, 45, 29, 72, 56, 18, 64, 40];
+
+function analyzeAges() {
+    var output = "";
+    var i;
+    var minAge = patientAges[0];
+    var maxAge = patientAges[0];
+    var sum = 0;
+    var seniorCount = 0;
+    var below18Count = 0;
+    var above60 = [];
+
+    output = output + "All patient ages: " + patientAges.join(", ") + "\n\n";
+
+    for (i = 0; i < patientAges.length; i++) {
+        var age = patientAges[i];
+        sum = sum + age;
+
+        if (age < minAge) {
+            minAge = age;
+        }
+        if (age > maxAge) {
+            maxAge = age;
+        }
+        if (age >= 60) {
+            seniorCount = seniorCount + 1;
+        }
+        if (age < 18) {
+            below18Count = below18Count + 1;
+        }
+        if (age > 60) {
+            above60.push(age);
+        }
+    }
+
+    var average = sum / patientAges.length;
+
+    output = output + "Minimum age: " + minAge + "\n";
+    output = output + "Maximum age: " + maxAge + "\n";
+    output = output + "Average age: " + average.toFixed(2) + "\n";
+    output = output + "Senior citizen patients (age >= 60): " + seniorCount + "\n";
+    output = output + "Patients below 18 years: " + below18Count + "\n";
+    output = output + "Patients with age greater than 60: " + above60.join(", ") + "\n";
+
+    document.getElementById("output").innerText = output;
+    console.log(output);
+    alert("Age analysis completed. Check the page and console.");
+}
+</script>
+
+</body>
+</html>

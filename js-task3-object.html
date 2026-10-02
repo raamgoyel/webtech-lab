@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Object</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="patient-registration.html">Registration</a></li>
+<li><a href="js-task1-fee.html">JS Task 1</a></li>
+<li><a href="js-task2-priority.html">JS Task 2</a></li>
+<li><a href="js-task3-object.html">JS Task 3</a></li>
+<li><a href="js-task4-arrays.html">JS Task 4</a></li>
+</ul>
+</nav>
+
+<h1>Task 3: Patient Registration Object</h1>
+<p>Urine Test Strip Reader System - CityCare Hospital</p>
+
+<button onclick="patient.displayPatient()">Show Patient Info</button>
+<button onclick="patient.displayAppointment()">Show Appointment Info</button>
+<button onclick="patient.checkAgeGroup()">Check Age Group</button>
+
+<pre id="output"></pre>
+
+<script>
+var patient = {
+    patientName: "Rahul Sharma",
+    patientId: "PAT-1001",
+    age: 45,
+    gender: "Male",
+    bloodGroup: "B+",
+    mobile: "9876543210",
+    department: "Pathology Lab",
+    appointmentType: "Urine Test Consultation",
+    registrationStatus: "Confirmed",
+
+    displayPatient: function() {
+        var info =
+            "Patient Name: " + this.patientName + "\n" +
+            "Patient ID: " + this.patientId + "\n" +
+            "Age: " + this.age + "\n" +
+            "Gender: " + this.gender + "\n" +
+            "Blood Group: " + this.bloodGroup + "\n" +
+            "Mobile: " + this.mobile + "\n" +
+            "Department: " + this.department + "\n" +
+            "Registration Status: " + this.registrationStatus;
+
+        document.getElementById("output").innerText = info;
+        console.log(this.patientName);
+        console.log(this.patientId);
+        console.log(this.department);
+        alert("Patient information displayed");
+    },
+
+    displayAppointment: function() {
+        var info =
+            "Patient Name: " + this.patientName + "\n" +
+            "Department: " + this.department + "\n" +
+            "Appointment Type: " + this.appointmentType + "\n" +
+            "Registration Status: " + this.registrationStatus;
+
+        document.getElementById("output").innerText = info;
+        console.log(info);
+        alert("Appointment information displayed");
+    },
+
+    checkAgeGroup: function() {
+        var group = "";
+        if (this.age >= 60) {
+            group = "Senior Citizen";
+        } else if (this.age >= 18) {
+            group = "Adult";
+        } else {
+            group = "Minor";
+        }
+
+        document.getElementById("output").innerText =
+            this.patientName + " is an " + group + " (Age: " + this.age + ")";
+        console.log(group);
+        alert(this.patientName + " is an " + group);
+    }
+};
+</script>
+
+</body>
+</html>

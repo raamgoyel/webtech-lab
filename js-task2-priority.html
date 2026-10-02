@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointment Priority</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="patient-registration.html">Registration</a></li>
+<li><a href="js-task1-fee.html">JS Task 1</a></li>
+<li><a href="js-task2-priority.html">JS Task 2</a></li>
+<li><a href="js-task3-object.html">JS Task 3</a></li>
+<li><a href="js-task4-arrays.html">JS Task 4</a></li>
+</ul>
+</nav>
+
+<h1>Task 2: Patient Appointment and Priority Decision</h1>
+<p>Urine Test Strip Reader System - CityCare Hospital</p>
+
+<label>Patient Age:</label><br>
+<input type="number" id="age"><br><br>
+
+<label>Temperature (C):</label><br>
+<input type="number" id="temperature" step="0.1"><br><br>
+
+<label>Severity Level:</label><br>
+<select id="severity">
+<option value="Mild">Mild</option>
+<option value="Moderate">Moderate</option>
+<option value="Severe">Severe</option>
+</select><br><br>
+
+<label>Emergency Status:</label><br>
+<select id="emergency">
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+</select><br><br>
+
+<button onclick="checkPriority()">Check Priority</button>
+
+<p id="result"></p>
+
+<script>
+function checkPriority() {
+    var age = Number(document.getElementById("age").value);
+    var temperature = Number(document.getElementById("temperature").value);
+    var severity = document.getElementById("severity").value;
+    var emergency = document.getElementById("emergency").value;
+
+    var recommendation = "";
+
+    if (emergency === "Yes") {
+        recommendation = "Emergency Consultation Required";
+    } else if (temperature >= 39) {
+        recommendation = "High Priority Consultation";
+    } else if (severity === "Severe") {
+        recommendation = "High Priority Consultation";
+    } else if (age >= 60 && severity === "Moderate") {
+        recommendation = "Priority Consultation";
+    } else {
+        recommendation = "Regular Consultation";
+    }
+
+    document.getElementById("result").innerHTML = "Recommendation: " + recommendation;
+    alert(recommendation);
+    console.log("Age: " + age + ", Temp: " + temperature + ", Severity: " + severity + ", Emergency: " + emergency);
+    console.log("Recommendation: " + recommendation);
+}
+</script>
+
+</body>
+</html>
